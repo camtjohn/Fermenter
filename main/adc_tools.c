@@ -28,7 +28,7 @@ void adc_init() {
         .bitwidth = ADC_BITWIDTH_DEFAULT,
         .atten = ADC_ATTEN,
     };
-    ESP_ERROR_CHECK(adc_oneshot_config_channel(adc1_handle, ADC1_CHAN0, &config));
+    ESP_ERROR_CHECK(adc_oneshot_config_channel(adc1_handle, ADC_CH, &config));
 
     //-------------ADC1 Calibration Init---------------//
     do_calibration = adc_calibration_init(ADC_UNIT_1, ADC_ATTEN, &adc1_cali_handle);
@@ -41,7 +41,7 @@ int read_adc() {
         int mv_calib;
 
         // Read adc pin
-        ESP_ERROR_CHECK(adc_oneshot_read(adc1_handle, ADC1_CHAN0, &adc_raw));
+        ESP_ERROR_CHECK(adc_oneshot_read(adc1_handle, ADC_CH, &adc_raw));
         //ESP_LOGI(TAG, "Raw Data: %d", adc_raw[0][0]);
         // Calibrate
         ESP_ERROR_CHECK(adc_cali_raw_to_voltage(adc1_cali_handle, adc_raw, &mv_calib));
